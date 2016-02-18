@@ -10,6 +10,11 @@ function push_gcm($arr)
     $APP_token = $arr['0'];
     $msg = $arr['1'];
 
+    if(empty($APP_token))
+    {
+        echo "empty token";
+    }
+
     //設定識別ID
 	$registatoin_ids = array($APP_token);
 	//設定內容

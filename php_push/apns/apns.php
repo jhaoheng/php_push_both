@@ -24,6 +24,11 @@ function ios_push($arr)
     $mode = $arr['1'];
     $message = $arr['2'];
 
+    if(empty($deviceToken))
+    {
+        echo "empty token";
+    }
+
     // check mode , dev or pro
     $ssl_gateway;
     $sslCert;
