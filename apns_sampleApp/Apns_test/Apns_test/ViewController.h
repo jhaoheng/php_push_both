@@ -12,6 +12,15 @@
 @interface ViewController : UIViewController<MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, retain) NSString *passToken;
+@property (nonatomic, retain) NSDictionary *passUserInfo;
 
 @end
+
+
+
+/*
+ wanted : 
+ - 需要把 logView 做得更好一些
+ - 延伸 nslog 的功能
+ */
 

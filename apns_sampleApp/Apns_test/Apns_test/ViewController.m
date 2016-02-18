@@ -11,12 +11,13 @@
 @interface ViewController ()
 {
     UILabel *token_label;
+    UILabel *logTextLabel;
 }
 
 @end
 
 @implementation ViewController
-@synthesize passToken=_passToken;
+@synthesize passToken=_passToken, passUserInfo=_passUserInfo;
 
 - (void)setPassToken:(NSString *)passToken
 {
@@ -25,6 +26,13 @@
     _passToken = passToken;
     
     token_label.text = _passToken;
+}
+
+- (void)setPassUserInfo:(NSDictionary *)passUserInfo
+{
+    _passUserInfo = passUserInfo;
+    logTextLabel.text = [NSString stringWithFormat:@"%@",_passUserInfo];
+    
 }
 
 
@@ -57,6 +65,17 @@
     passTokenToSelf_btn.layer.borderWidth = .5;
     [self.view addSubview:passTokenToSelf_btn];
     
+    //
+    logTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(passTokenToSelf_btn.frame)+10, CGRectGetWidth(self.view.frame)-20, CGRectGetHeight(self.view.frame)-CGRectGetMaxY(passTokenToSelf_btn.frame)-20)];
+    
+    logTextLabel.backgroundColor = [UIColor blackColor];
+    
+    logTextLabel.text = @"";
+    logTextLabel.textColor = [UIColor whiteColor];
+    logTextLabel.numberOfLines = 0;
+    logTextLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    [self.view addSubview:logTextLabel];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,7 +87,7 @@
 - (void)pass_activity:(id)sender
 {
     
-    NSString *subject = [NSString stringWithFormat:@"hHllo,this is '%@ token'",[UIDevice currentDevice].name];
+    NSString *subject = [NSString stringWithFormat:@"Hello,this is '%@ token'",[UIDevice currentDevice].name];
     NSString *msg = [NSString stringWithFormat:@"DeviceToken is : \n\n%@",_passToken];
     
     MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];

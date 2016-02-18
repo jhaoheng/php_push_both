@@ -99,6 +99,7 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     NSLog(@"%@",userInfo);
+    temp.passUserInfo = userInfo;
 }
 
 @end

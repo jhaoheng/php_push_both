@@ -1,4 +1,4 @@
 dependencies: \
-  /Users/jhaoheng/Documents/notification_test/apns_sample/Apns_test/Apns_test/AppDelegate.m \
-  /Users/jhaoheng/Documents/notification_test/apns_sample/Apns_test/Apns_test/AppDelegate.h \
-  /Users/jhaoheng/Documents/notification_test/apns_sample/Apns_test/Apns_test/ViewController.h
+  /Users/jhaoheng/Documents/github/php_push_both/apns_sampleApp/Apns_test/Apns_test/AppDelegate.m \
+  /Users/jhaoheng/Documents/github/php_push_both/apns_sampleApp/Apns_test/Apns_test/AppDelegate.h \
+  /Users/jhaoheng/Documents/github/php_push_both/apns_sampleApp/Apns_test/Apns_test/ViewController.h
