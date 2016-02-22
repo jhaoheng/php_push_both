@@ -12,6 +12,7 @@
 {
     UILabel *token_label;
     UILabel *logTextLabel;
+    UILabel *dateLabel;
 }
 
 @end
@@ -30,9 +31,19 @@
 
 - (void)setPassUserInfo:(NSDictionary *)passUserInfo
 {
-    _passUserInfo = passUserInfo;
-    logTextLabel.text = [NSString stringWithFormat:@"%@",_passUserInfo];
+    NSDate *date = [NSDate date];
     
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate: date];
+    NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    NSLog(@"%@", localeDate);
+    
+    //
+    _passUserInfo = passUserInfo;
+    logTextLabel.text = [NSString stringWithFormat:@"%@\n%@",_passUserInfo,[dateFormatter stringFromDate:localeDate]];
 }
 
 
@@ -75,6 +86,7 @@
     logTextLabel.numberOfLines = 0;
     logTextLabel.lineBreakMode = NSLineBreakByCharWrapping;
     [self.view addSubview:logTextLabel];
+    
     
 }
 
