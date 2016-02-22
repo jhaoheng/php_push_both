@@ -11,14 +11,17 @@
 @interface ViewController ()
 {
     UILabel *token_label;
-    UILabel *logTextLabel;
-    UILabel *dateLabel;
+//    UILabel *logTextLabel;
+    
+    UIScrollView *logView;
 }
 
 @end
 
 @implementation ViewController
 @synthesize passToken=_passToken, passUserInfo=_passUserInfo;
+
+#define infoBlockHeight 183;
 
 - (void)setPassToken:(NSString *)passToken
 {
@@ -43,7 +46,23 @@
     
     //
     _passUserInfo = passUserInfo;
-    logTextLabel.text = [NSString stringWithFormat:@"%@\n%@",_passUserInfo,[dateFormatter stringFromDate:localeDate]];
+    
+    //
+    CGFloat h = infoBlockHeight;
+    UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, logView.contentSize.height, CGRectGetWidth(logView.frame), h)];
+    infoLabel.textColor = [UIColor whiteColor];
+    infoLabel.text = [NSString stringWithFormat:@"%@\n%@",[dateFormatter stringFromDate:localeDate],_passUserInfo];
+    infoLabel.numberOfLines = 0;
+    infoLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    infoLabel.textAlignment = NSTextAlignmentLeft;
+//    [infoLabel sizeToFit];
+    [logView addSubview:infoLabel];
+    
+    logView.contentSize = CGSizeMake(logView.frame.size.width, logView.contentSize.height+h);
+    
+    NSLog(@"%@",NSStringFromCGRect(infoLabel.frame));
+    NSLog(@"%f",logView.contentSize.height);
+    logView.contentOffset = CGPointMake(0, logView.contentSize.height-h);
 }
 
 
@@ -76,17 +95,23 @@
     passTokenToSelf_btn.layer.borderWidth = .5;
     [self.view addSubview:passTokenToSelf_btn];
     
+    
+    //log scroll view
+    logView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(passTokenToSelf_btn.frame)+10, CGRectGetWidth(self.view.frame)-20, CGRectGetHeight(self.view.frame)-CGRectGetMaxY(passTokenToSelf_btn.frame)-20)];
+    logView.backgroundColor = [UIColor blackColor];
+#warning 當收到推播時，超出目前的範圍大小，要動態增長，所以應該放在當取得新的資訊時，直接 alloc 一個新的
+    [self.view addSubview:logView];
+    
     //
-    logTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(passTokenToSelf_btn.frame)+10, CGRectGetWidth(self.view.frame)-20, CGRectGetHeight(self.view.frame)-CGRectGetMaxY(passTokenToSelf_btn.frame)-20)];
-    
-    logTextLabel.backgroundColor = [UIColor blackColor];
-    
-    logTextLabel.text = @"";
-    logTextLabel.textColor = [UIColor whiteColor];
-    logTextLabel.numberOfLines = 0;
-    logTextLabel.lineBreakMode = NSLineBreakByCharWrapping;
-    [self.view addSubview:logTextLabel];
-    
+//    logTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(passTokenToSelf_btn.frame)+10, CGRectGetWidth(self.view.frame)-20, CGRectGetHeight(self.view.frame)-CGRectGetMaxY(passTokenToSelf_btn.frame)-20)];
+//    
+//    logTextLabel.backgroundColor = [UIColor blackColor];
+//    
+//    logTextLabel.text = @"";
+//    logTextLabel.textColor = [UIColor whiteColor];
+//    logTextLabel.numberOfLines = 0;
+//    logTextLabel.lineBreakMode = NSLineBreakByCharWrapping;
+//    [self.view addSubview:logTextLabel];
     
 }
 
