@@ -6,14 +6,19 @@
 //  Copyright © 2016年 max. All rights reserved.
 //
 
+#warning 從手機寄送 token 給 php api，寫入 log(日期、date)
+#warning 加入兩個 btn , 1. request token(彈出 alert)
+
 #import "ViewController.h"
 
 @interface ViewController ()
 {
     UILabel *token_label;
-//    UILabel *logTextLabel;
     
     UIScrollView *logView;
+    
+    UILabel *accept_times_label;
+    int count;
 }
 
 @end
@@ -30,6 +35,7 @@
     _passToken = passToken;
     
     token_label.text = _passToken;
+    [token_label sizeToFit];
 }
 
 - (void)setPassUserInfo:(NSDictionary *)passUserInfo
@@ -60,59 +66,87 @@
     
     logView.contentSize = CGSizeMake(logView.frame.size.width, logView.contentSize.height+h);
     
-    NSLog(@"%@",NSStringFromCGRect(infoLabel.frame));
-    NSLog(@"%f",logView.contentSize.height);
+    [UIView beginAnimations:nil context:nil];
     logView.contentOffset = CGPointMake(0, logView.contentSize.height-h);
+    [UIView commitAnimations];
+    
+    //接收次數
+    count++;
+    accept_times_label.text = [NSString stringWithFormat:@"Times : %d",count];
 }
 
-
+#pragma mark - view did load
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view, typically from a nib.
     
+    
+    //系統版本
+    NSDictionary* infoDictionary = [[NSBundle mainBundle] infoDictionary];
+//    NSLog(@"%i Keys:  %@", [infoDictionary count], [[infoDictionary allKeys] componentsJoinedByString: @" ,"]);
+    NSLog(@"CFBundleVersion : %@",[infoDictionary objectForKey:@"CFBundleVersion"]);
+    NSLog(@"CFBundleShortVersionString : %@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]);
+    
     //
-    UILabel *tokenTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 100, CGRectGetWidth(self.view.frame)-20, 0)];
+    UILabel *tokenTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 50, CGRectGetWidth(self.view.frame)-20, 0)];
     tokenTitle.text = @"Device Token is : ";
     [tokenTitle sizeToFit];
     [self.view addSubview:tokenTitle];
     
     //
-    token_label = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(tokenTitle.frame)+10, CGRectGetWidth(self.view.frame)-20, 50)];
+    token_label = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(tokenTitle.frame)+10, CGRectGetWidth(self.view.frame)-20, 60)];
     token_label.numberOfLines = 0;
     token_label.lineBreakMode = NSLineBreakByCharWrapping;
     token_label.text = @"hello, wait to get token.";
     [self.view addSubview:token_label];
     
-    //uibutton pass token
-    UIButton *passTokenToSelf_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    passTokenToSelf_btn.frame = CGRectMake((CGRectGetWidth(self.view.frame)-150)/2, CGRectGetMaxY(token_label.frame)+50, 150, 44);
-    [passTokenToSelf_btn setTitle:@"Send Token" forState:UIControlStateNormal];
-    [passTokenToSelf_btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [passTokenToSelf_btn addTarget:self action:@selector(pass_activity:) forControlEvents:UIControlEventTouchUpInside];
-    passTokenToSelf_btn.layer.cornerRadius = 10;
-    passTokenToSelf_btn.layer.borderColor = [UIColor blackColor].CGColor;
-    passTokenToSelf_btn.layer.borderWidth = .5;
-    [self.view addSubview:passTokenToSelf_btn];
+    //uibutton mail token
+    UIButton *mailTokenToSelf_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    mailTokenToSelf_btn.frame = CGRectMake(10, CGRectGetMaxY(token_label.frame)+10, (CGRectGetWidth(self.view.frame)-30)/3, 44);
+    [mailTokenToSelf_btn setTitle:@"mail Token" forState:UIControlStateNormal];
+    [mailTokenToSelf_btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [mailTokenToSelf_btn addTarget:self action:@selector(pass_activity:) forControlEvents:UIControlEventTouchUpInside];
+    mailTokenToSelf_btn.layer.cornerRadius = 10;
+    mailTokenToSelf_btn.layer.borderColor = [UIColor blackColor].CGColor;
+    mailTokenToSelf_btn.layer.borderWidth = .5;
+    mailTokenToSelf_btn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [self.view addSubview:mailTokenToSelf_btn];
     
+    //uibutton apiback token
+    UIButton *apibackToken_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    apibackToken_btn.frame = CGRectMake(CGRectGetMaxX(mailTokenToSelf_btn.frame)+5, CGRectGetMaxY(token_label.frame)+10, (CGRectGetWidth(self.view.frame)-30)/3, 44);
+    [apibackToken_btn setTitle:@"apiback token" forState:UIControlStateNormal];
+    [apibackToken_btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [apibackToken_btn addTarget:self action:@selector(apiToken_activity:) forControlEvents:UIControlEventTouchUpInside];
+    apibackToken_btn.layer.cornerRadius = 10;
+    apibackToken_btn.layer.borderColor = [UIColor blackColor].CGColor;
+    apibackToken_btn.layer.borderWidth = .5;
+    apibackToken_btn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [self.view addSubview:apibackToken_btn];
+    
+    //uibutton clean log
+    UIButton *cleanLog_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    cleanLog_btn.frame = CGRectMake(CGRectGetMaxX(apibackToken_btn.frame)+5, CGRectGetMaxY(token_label.frame)+10, (CGRectGetWidth(self.view.frame)-30)/3, 44);
+    [cleanLog_btn setTitle:@"clean log" forState:UIControlStateNormal];
+    [cleanLog_btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [cleanLog_btn addTarget:self action:@selector(cleanLog_activity:) forControlEvents:UIControlEventTouchUpInside];
+    cleanLog_btn.layer.cornerRadius = 10;
+    cleanLog_btn.layer.borderColor = [UIColor blackColor].CGColor;
+    cleanLog_btn.layer.borderWidth = .5;
+    cleanLog_btn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [self.view addSubview:cleanLog_btn];
+    
+    //次數
+    count = 0;
+    accept_times_label = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(mailTokenToSelf_btn.frame)+5, CGRectGetWidth(self.view.frame)-20, 20)];
+    accept_times_label.text = [NSString stringWithFormat:@"Times : %d",count];
+    accept_times_label.textAlignment = NSTextAlignmentLeft;
+    accept_times_label.textColor = [UIColor blackColor];
+    [self.view addSubview:accept_times_label];
     
     //log scroll view
-    logView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(passTokenToSelf_btn.frame)+10, CGRectGetWidth(self.view.frame)-20, CGRectGetHeight(self.view.frame)-CGRectGetMaxY(passTokenToSelf_btn.frame)-20)];
-    logView.backgroundColor = [UIColor blackColor];
-#warning 當收到推播時，超出目前的範圍大小，要動態增長，所以應該放在當取得新的資訊時，直接 alloc 一個新的
-    [self.view addSubview:logView];
-    
-    //
-//    logTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(passTokenToSelf_btn.frame)+10, CGRectGetWidth(self.view.frame)-20, CGRectGetHeight(self.view.frame)-CGRectGetMaxY(passTokenToSelf_btn.frame)-20)];
-//    
-//    logTextLabel.backgroundColor = [UIColor blackColor];
-//    
-//    logTextLabel.text = @"";
-//    logTextLabel.textColor = [UIColor whiteColor];
-//    logTextLabel.numberOfLines = 0;
-//    logTextLabel.lineBreakMode = NSLineBreakByCharWrapping;
-//    [self.view addSubview:logTextLabel];
-    
+    [self init_logView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -142,6 +176,28 @@
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - uiscroll view : log view
+- (void)init_logView
+{
+    logView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(accept_times_label.frame)+10, CGRectGetWidth(self.view.frame)-20, CGRectGetHeight(self.view.frame)-CGRectGetMaxY(accept_times_label.frame)-20)];
+    logView.backgroundColor = [UIColor blackColor];
+    logView.alwaysBounceVertical = YES;
+    [self.view addSubview:logView];
+}
+
+- (void)cleanLog_activity:(id)sender
+{
+    count = 0;
+    accept_times_label.text = [NSString stringWithFormat:@"Times : %d",count];
+    [self init_logView];
+}
+
+#pragma mark - apiToken_activity
+- (void)apiToken_activity:(id)sender
+{
+    //
 }
 
 @end
