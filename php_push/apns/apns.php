@@ -39,6 +39,7 @@ function apns_push($arr)
 
     if (!$fp)
     {
+        echo "請檢查憑證：連接錯誤<br>";
         exit("Failed to connect: $err $errstr" . PHP_EOL);
     }
 
