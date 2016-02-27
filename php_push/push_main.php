@@ -30,9 +30,9 @@ elseif ($category == 'android') {
 
 //debug view
 if ($is_show_log == "yes") {
-
+    echo "<br><br><hr><br>測試參數:<br><br>";
     foreach ($infoArr as $key => $value) {
-        echo "$key => ";
+        echo "'" . $key . "' => ";
         if (!is_array($value)) {
             echo $value."<br>";
         }

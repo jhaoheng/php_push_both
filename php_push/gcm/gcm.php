@@ -39,7 +39,6 @@ function gcm_push($arr)
 	$result = curl_exec($curl);
 	curl_close($curl);
     echo $result;
-	echo "<hr>";
 }
 
 ?>
