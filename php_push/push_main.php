@@ -22,10 +22,10 @@ else if ($category == "android") {
 }
 
 if ($category == 'ios') {
-    ios_push($infoArr);
+    apns_push($infoArr);
 }
 elseif ($category == 'android') {
-    // gcm_push($infoArr);
+    gcm_push($infoArr);
 }
 
 //debug view

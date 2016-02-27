@@ -1,24 +1,21 @@
 <?php
 
 
-function push_gcm($arr)
+function gcm_push($arr)
 {
-    //申請的API金鑰
-    $API_KEY = "AIzaSyCPTtNTYyzprq1a-lD4syP3-RzDa7NENKU";
+    $gcm_API_KEY = $arr['gcm_API_KEY'];
+    $gcm_token = $arr['gcm_token'];
+    $gcm_message = $arr['gcm_message'];
 
-    //已知的APP推播識別token
-    $APP_token = $arr['0'];
-    $msg = $arr['1'];
-
-    if(empty($APP_token))
+    if(empty($gcm_token))
     {
         echo "empty token";
     }
 
     //設定識別ID
-	$registatoin_ids = array($APP_token);
+	$registatoin_ids = array($gcm_token);
 	//設定內容
-    $data = array("message" => $msg);
+    $data = array("message" => $gcm_message);
 
     //設定json內容
     $url = 'https://android.googleapis.com/gcm/send';
@@ -28,7 +25,7 @@ function push_gcm($arr)
         );
 
     $headers = array(
-            'Authorization: key=' . $API_KEY,
+            'Authorization: key=' . $gcm_API_KEY,
             'Content-Type: application/json'
         );
 

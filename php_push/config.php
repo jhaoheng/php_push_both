@@ -11,11 +11,15 @@ $is_show_log = "yes";
 1. 是否開啟測試   :yes or no
 2. 測試目標類別   :"ios"、"android"
 3. 測試 token
+    - ios : dev : 1a6869c947894a9df0a0974bf149edd4ea841fd24544ccc7d00ed7c928cb4ead
+    - android :
+        - key : AIzaSyBetv5Yg4cY-_PhQFfeowSn_x8AM0_N5qo
+        - token :
 4. 測試 推播內容
 */
 $isTestOpen = "yes"; // if yes, start test, and setting follow below
-$push_test_category = "ios"; // "ios", "android"
-$push_test_token = "1a6869c947894a9df0a0974bf149edd4ea841fd24544ccc7d00ed7c928cb4ead";//寫入 ios or android 的 token
+$push_test_category = "android"; // "ios", "android"
+$push_test_token = "dCui9qFP0Gc:APA91bFK-tqeDN6sRWZCb891fk4dBngK1BpT4yoNP6x5gW9_A3GFg_FM0dXggtvxkuiik0LnczwfqjXys3ysj0O04wJV1KPedzcTZki7zST9TZQW-rtpGgfyXp4Zu0I9PxN1X9hOuuNK";//寫入 ios or android 的 token
 $push_test_PushSubject = "測試說 hi";
 if ($isTestOpen == 'yes') {
     echo "**測試開啟，正式上版前，請關閉**<br><br>";
@@ -55,7 +59,7 @@ $apns_message['aps']        = array(
 1. gcm key
 2. 推播內容參數設定，主要跟 api 取得參數相關
 */
-$gcm_API_KEY                = "AIzaSyCPTtNTYyzprq1a-lD4syP3-RzDa7NENKU"; // 可更動
+$gcm_API_KEY                = "AIzaSyBetv5Yg4cY-_PhQFfeowSn_x8AM0_N5qo"; // 可更動
 $gcm_token                  = $DeviceToken;
 $gcm_message                = array(
                                 "message" => $PushSubject

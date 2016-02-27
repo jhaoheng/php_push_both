@@ -4,7 +4,7 @@
     $apns_phasePass : 憑證密碼
 */
 
-function ios_push($arr)
+function apns_push($arr)
 {
     $apns_mode = $arr['apns_mode'];
     $apns_phasePass = $arr['apns_phasePass'];
