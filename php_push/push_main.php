@@ -1,48 +1,51 @@
 <?php
+include ("config.php");
 include ("apns/apns.php");
 include ("gcm/gcm.php");
 
-//包含:
-// - category : 種類，'ios'、'android'
-// - DeviceToken : 裝置推播號碼
-// - PushSubject : 推播顯示文字
-
-$category = $_GET['category'];
-
-$DeviceToken = $_GET['DeviceToken'];
-$PushSubject = $_GET['PushSubject'];
-
-
-//測試用:(ios)
-// $category = 'ios';
-// $DeviceToken = '32a3bedfc3f17b252b02a218561050f1f86a0ce03136172956fd2f9114151f8c';
-// $PushSubject = 'hello';
-
-
-
-//測試用:(android)
-// $category = 'android';
-// $DeviceToken = '';
-// $trannum = '';
-
+//組合
+if ($category == "ios") {
+    # code...
+    $infoArr = array(
+        'apns_mode' => $apns_mode,
+        'apns_phasePass' => $apns_phasePass,
+        'apns_pem_path' => $apns_pem_path,
+        'apns_token' => $apns_token,
+        'apns_message' => $apns_message);
+}
+else if ($category == "android") {
+    # code...
+    $infoArr = array(
+        'gcm_API_KEY' => $gcm_API_KEY,
+        'gcm_token' => $gcm_token,
+        'gcm_message' => $gcm_message);
+}
 
 if ($category == 'ios') {
-
-    //send ios push
-    //0:mode
-    //1:DeviceToken
-    //2:msgContent : $PushSubject
-    $infoArr = array($DeviceToken, 'dev', $PushSubject);
     ios_push($infoArr);
 }
 elseif ($category == 'android') {
-
-    //send android push
-    //0:DeviceToken
-    //1:msg : $PushSubject
-    $infoArr = array($DeviceToken, $PushSubject);
-    gcm_push($infoArr);
+    // gcm_push($infoArr);
 }
 
+//debug view
+if ($is_show_log == "yes") {
+
+    foreach ($infoArr as $key => $value) {
+        echo "$key => ";
+        if (!is_array($value)) {
+            echo $value."<br>";
+        }
+        else {
+            echo "<br>";
+            ($category == 'ios') ? $value=$value[aps] : $value;
+            foreach ($value as $key2 => $value2) {
+                echo "[" . $key2 . " => " . $value2 . "]" . "<br>";
+            }
+            // var_dump($value);
+        }
+        echo "<br>";
+    }
+}
 
 ?>
