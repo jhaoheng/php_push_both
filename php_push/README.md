@@ -2,7 +2,8 @@
 
 主要檔案
 
-- push_main.php : 內有預設測試參數，不用特別傳遞 get，開啟註解可使用
+- config : 設定所有 apns / gcm 相關參數，只需調整此設定檔
+- push_main.php : 
 - apns.php :
 - gcm.php :
 
@@ -20,11 +21,8 @@ ex:
 	- DeviceToken : 推送裝置手機 token
 	- PushSubject : 推送內容
 
-3. 關於 ios
-	- 有多一個參數 "dev" 與 "pro"
-		- 若選擇 dev，則使用 apns_dev.pem 的憑證，與此憑證產生的 dev 的 token
-		- 若選擇 pro，則使用 apns_pro.pem 的憑證，與此憑證產生的 pro/adhoc 的 token
-	- 關於 pem 憑證，制式名稱為 ```apns_dev.pem``` 與 ```apns_pro.pem```
-	- 設定憑證密碼，請至 ```apns.php```
-4. 關於 gcm
-	- 金鑰 api_key，請至 gcm.php 修改
+3. 關於 config.php
+	- $is_show_log : 顯示 log 在畫面上
+	- 測試設定 : 開啟測試，可用測試參數進行推播，可針對特定裝置
+	- ios 參數設定 : 含 推播模式、金鑰密碼、token、推播內容...等，設定可調整。
+	- android 參數設定 : $gcm_API_KEY、$gcm_token、$gcm_message 
