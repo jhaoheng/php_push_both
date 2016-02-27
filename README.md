@@ -1,6 +1,7 @@
 # README
 
 php 推播
+
 - apns_sampleApp : ios objc app sample
 - gcm_sampleApp : android app sample
 - ios_apns_test : only ios push, use php. Include easy version and log version
@@ -16,3 +17,4 @@ php 推播
 - push_main.php : 主要推播的檔案
 	- apns/apns.php : 
 	- gcm/gcm.php : 
+	- config : 設定所有 apns / gcm 相關參數，設定好此項目即可推播
