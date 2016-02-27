@@ -17,4 +17,4 @@ php 推播
 - push_main.php : 主要推播的檔案
 	- apns/apns.php : 
 	- gcm/gcm.php : 
-	- config : 設定所有 apns / gcm 相關參數，設定好此項目即可推播
+- config.php : 設定所有 apns / gcm 相關參數，設定好此項目即可推播
