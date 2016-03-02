@@ -17,10 +17,10 @@ $is_show_log = "yes";
         - token :
 4. 測試 推播內容
 */
-$isTestOpen = "no"; // if yes, start test, and setting follow below
+$isTestOpen = "yes"; // if yes, start test, and setting follow below
 $push_test_category = "ios"; // "ios", "android"
 $push_test_ios_token = "1a6869c947894a9df0a0974bf149edd4ea841fd24544ccc7d00ed7c928cb4ead";
-$push_test_andorid_token = "dCui9qFP0Gc:APA91bFK-tqeDN6sRWZCb891fk4dBngK1BpT4yoNP6x5gW9_A3GFg_FM0dXggtvxkuiik0LnczwfqjXys3ysj0O04wJV1KPedzcTZki7zST9TZQW-rtpGgfyXp4Zu0I9PxN1X9hOuuNK";
+$push_test_andorid_token = "fiAZJH8wzug:APA91bE2L5YpK8oMzALdE-O-2YoaXkts-PX42X9GRGt-J3uECY9vx2hpufT8CHwsrWy5w9b-IFfs4vXX8C5GSJaiBKrnSYNgEHhdNFcwitV0ZIX91zETmpysQtEX-PDxxbeqjHF0W2j-";
 $push_test_token = ($push_test_category=='ios') ? $push_test_ios_token : $push_test_andorid_token;
 $push_test_PushSubject = "測試說 hi";
 if ($isTestOpen == 'yes') {
