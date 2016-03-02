@@ -19,7 +19,7 @@ $is_show_log = "yes";
 */
 $isTestOpen = "yes"; // if yes, start test, and setting follow below
 $push_test_category = "ios"; // "ios", "android"
-$push_test_ios_token = "1a6869c947894a9df0a0974bf149edd4ea841fd24544ccc7d00ed7c928cb4ead";
+$push_test_ios_token = 'b80777ca0aa12f197e544a3d189c06716512532c8e20f70a073ee7d7f34fe2cc';//"1a6869c947894a9df0a0974bf149edd4ea841fd24544ccc7d00ed7c928cb4ead";
 $push_test_andorid_token = "fiAZJH8wzug:APA91bE2L5YpK8oMzALdE-O-2YoaXkts-PX42X9GRGt-J3uECY9vx2hpufT8CHwsrWy5w9b-IFfs4vXX8C5GSJaiBKrnSYNgEHhdNFcwitV0ZIX91zETmpysQtEX-PDxxbeqjHF0W2j-";
 $push_test_token = ($push_test_category=='ios') ? $push_test_ios_token : $push_test_andorid_token;
 $push_test_PushSubject = "測試說 hi";
