@@ -18,7 +18,7 @@ function gcm_push($arr)
     $data = array("message" => $gcm_message);
 
     //設定json內容
-    $url = 'https://android.googleapis.com/gcm/send';
+    $url = 'https://gcm-http.googleapis.com/gcm/send';
 	$json = array(
             'registration_ids' => $registatoin_ids,
             'data' => $data,
