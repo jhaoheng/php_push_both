@@ -40,15 +40,11 @@
 
 - (void)setPassUserInfo:(NSDictionary *)passUserInfo
 {
-    NSDate *date = [NSDate date];
     
-    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-    NSInteger interval = [zone secondsFromGMTForDate: date];
-    NSDate *localeDate = [date  dateByAddingTimeInterval: interval];
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//    NSLog(@"%@", localeDate);
+    NSDateFormatter *dateFormatter =[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:SS"];
+    [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+    NSString *localeDate = [dateFormatter stringFromDate:[NSDate date]];
     
     //
     _passUserInfo = passUserInfo;
@@ -57,7 +53,7 @@
     CGFloat h = infoBlockHeight;
     UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, logView.contentSize.height, CGRectGetWidth(logView.frame), h)];
     infoLabel.textColor = [UIColor whiteColor];
-    infoLabel.text = [NSString stringWithFormat:@"%@\n%@",[dateFormatter stringFromDate:localeDate],_passUserInfo];
+    infoLabel.text = [NSString stringWithFormat:@"%@\n%@",localeDate,_passUserInfo];
     infoLabel.numberOfLines = 0;
     infoLabel.lineBreakMode = NSLineBreakByCharWrapping;
     infoLabel.textAlignment = NSTextAlignmentLeft;
@@ -80,7 +76,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view, typically from a nib.
-    
     
     //系統版本
     NSDictionary* infoDictionary = [[NSBundle mainBundle] infoDictionary];
