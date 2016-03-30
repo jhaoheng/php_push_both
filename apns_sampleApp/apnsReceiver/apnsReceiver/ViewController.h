@@ -15,6 +15,10 @@
 @interface ViewController : UIViewController<MFMailComposeViewControllerDelegate,slideMenuDelegate>
 {
     slideViewController *slide;
+    
+    //
+    UILabel *netStatus_label;
+    UIImageView *netStatusImg;
 }
 
 @property (nonatomic, retain) NSString *passToken;

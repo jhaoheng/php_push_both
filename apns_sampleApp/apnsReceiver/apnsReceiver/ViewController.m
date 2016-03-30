@@ -73,6 +73,25 @@
 - (void)setNet_status:(NSString *)net_status
 {
     NSLog(@"網路狀態(Reachability)：%@",net_status);
+    /*
+     2:wifi
+     1:wwan
+     0:none
+     */
+    if ((long)[AFNetworkReachabilityManager sharedManager].networkReachabilityStatus==2) {
+        netStatus_label.text = @"WiFi";
+        netStatusImg.image = [UIImage imageNamed:@"icon_blue.png"];
+    }
+    else if ((long)[AFNetworkReachabilityManager sharedManager].networkReachabilityStatus==1)
+    {
+        netStatus_label.text = @"WWAN";
+        netStatusImg.image = [UIImage imageNamed:@"icon_green.png"];
+    }
+    else
+    {
+        netStatus_label.text = @"None";
+        netStatusImg.image = [UIImage imageNamed:@"icon_red.png"];
+    }
 }
 
 #pragma mark - view did load
@@ -202,6 +221,21 @@
     [cleanLog_btn addTarget:self action:@selector(cleanLog_activity:) forControlEvents:UIControlEventTouchUpInside];
     cleanLog_btn.titleLabel.font = [UIFont systemFontOfSize:12];
     [logView addSubview:cleanLog_btn];
+    
+    //net status
+    CGRect frame = CGRectMake(CGRectGetWidth(logView.frame)-50-40, CGRectGetHeight(logView.frame)-20.5-10, 50, 20.5);
+    netStatus_label = [[UILabel alloc] initWithFrame:frame];
+    netStatus_label.text = @"NONE";
+    netStatus_label.textColor = [UIColor grayColor];
+    netStatus_label.textAlignment = NSTextAlignmentRight;
+    netStatus_label.font = [UIFont systemFontOfSize:12];
+    [logView addSubview:netStatus_label];
+    
+    //
+    frame = CGRectMake(CGRectGetMaxX(netStatus_label.frame)+10, CGRectGetMinY(netStatus_label.frame), 20, 20);
+    netStatusImg = [[UIImageView alloc] initWithFrame:frame];
+    netStatusImg.image = [UIImage imageNamed:@"icon_red.png"];
+    [logView addSubview:netStatusImg];
 }
 
 #pragma mark 日誌清除
