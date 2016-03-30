@@ -15,6 +15,7 @@
     UIScrollView *logView;
     
     UILabel *accept_times_label;
+    CGFloat accept_times_label_h;
     int count;
 }
 
@@ -49,7 +50,7 @@
     
     //
     CGFloat h = infoBlockHeight;
-    UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, logView.contentSize.height, CGRectGetWidth(logView.frame), h)];
+    UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, accept_times_label_h+logView.contentSize.height, CGRectGetWidth(logView.frame), h)];
     infoLabel.textColor = [UIColor whiteColor];
     infoLabel.text = [NSString stringWithFormat:@"%@\n%@",localeDate,_passUserInfo];
     infoLabel.numberOfLines = 0;
@@ -86,10 +87,18 @@
     NSLog(@"CFBundleVersion : %@",[infoDictionary objectForKey:@"CFBundleVersion"]);
     NSLog(@"CFBundleShortVersionString : %@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]);
     
+    //Action btn
+    CGFloat w = 100;
+    CGFloat h = 44;
+//    UIButton *actionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    actionBtn.frame = CGRectMake(, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+//    [self.view addSubview:actionBtn];
+    
     //
     UILabel *tokenTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 50, CGRectGetWidth(self.view.frame)-20, 0)];
     tokenTitle.text = @"Device Token is : ";
     [tokenTitle sizeToFit];
+    NSLog(@"%@",NSStringFromCGRect(tokenTitle.frame));
     [self.view addSubview:tokenTitle];
     
     //
@@ -124,13 +133,6 @@
     [self.view addSubview:apibackToken_btn];
     
     
-    //notification times
-    count = 0;
-    accept_times_label = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(mailTokenToSelf_btn.frame)+5, CGRectGetWidth(self.view.frame)-20, 20)];
-    accept_times_label.text = [NSString stringWithFormat:@"Times : %d",count];
-    accept_times_label.textAlignment = NSTextAlignmentLeft;
-    accept_times_label.textColor = [UIColor blackColor];
-    [self.view addSubview:accept_times_label];
     
     //log scroll view
     [self init_logView];
@@ -177,15 +179,27 @@
 #pragma mark - uiscroll view : log view
 - (void)init_logView
 {
-    logView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(accept_times_label.frame)+10, CGRectGetWidth(self.view.frame)-20, CGRectGetHeight(self.view.frame)-CGRectGetMaxY(accept_times_label.frame)-20)];
+    logView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(token_label.frame)+10, CGRectGetWidth(self.view.frame)-20, CGRectGetHeight(self.view.frame)-CGRectGetMaxY(token_label.frame)-20)];
     logView.backgroundColor = [UIColor blackColor];
     logView.alwaysBounceVertical = YES;
     [self.view addSubview:logView];
     
     //
+    
+    
+    //remote notification times
+    count = 0;
+    accept_times_label_h = 20;
+    accept_times_label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, CGRectGetWidth(self.view.frame)-20, accept_times_label_h)];
+    accept_times_label.text = [NSString stringWithFormat:@"Times : %d",count];
+    accept_times_label.textAlignment = NSTextAlignmentLeft;
+    accept_times_label.textColor = [UIColor redColor];
+    accept_times_label.font = [UIFont systemFontOfSize:12];
+    [logView addSubview:accept_times_label];
+    
     //uibutton clean log
     UIButton *cleanLog_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    cleanLog_btn.frame = CGRectMake( CGRectGetMaxX(logView.frame)-100,0,100,44);
+    cleanLog_btn.frame = CGRectMake( CGRectGetMaxX(logView.frame)-100,0,100,30);
     [cleanLog_btn setTitle:@"Clean" forState:UIControlStateNormal];
     [cleanLog_btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [cleanLog_btn addTarget:self action:@selector(cleanLog_activity:) forControlEvents:UIControlEventTouchUpInside];
