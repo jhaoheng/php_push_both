@@ -8,7 +8,6 @@ php 推播
 - php_push : both push gcm and apns.
 
 ## ios_apns_test
-![ios_icon](apns_sampleApp/icon_180.png)
 
 1. php_apns.php : 簡單版的 php 推播，在 php 中設定相關參數
 2. php_apns_cli.php : 透過指令，取得相關參數 
