@@ -8,6 +8,7 @@ php 推播
 - php_push : both push gcm and apns.
 
 ## ios_apns_test
+![ios_icon](apns_sampleApp/icon_180.png)
 
 1. php_apns.php : 簡單版的 php 推播，在 php 中設定相關參數
 2. php_apns_cli.php : 透過指令，取得相關參數 
@@ -18,3 +19,12 @@ php 推播
 	- apns/apns.php : 
 	- gcm/gcm.php : 
 - config.php : 設定所有 apns / gcm 相關參數，設定好此項目即可推播
+
+
+## gcm
+
+- 關於 gcm 送出格式問題
+	- gcm.php
+		- 確定 $data 送出的對應陣列格式是否與手機端相同，若不相同，則手機無法顯示
+	- config.php
+		- 確定 $gcm_message 中的格式，是否與手機相同，否則手機無法顯示
