@@ -27,3 +27,8 @@ php 推播
 		- 確定 $data 送出的對應陣列格式是否與手機端相同，若不相同，則手機無法顯示
 	- config.php
 		- 確定 $gcm_message 中的格式，是否與手機相同，否則手機無法顯示
+
+# APP
+
+- apns_sampleApp : 處理 apns log 
+- gcm_sampleApp : 處理 gcm log
