@@ -220,6 +220,7 @@
 - (void)api_send_activity:(id)sender
 {
     //
+    [self alertOfTitle:@"" andMsg:@"NOT AVAILABLE"];
 }
 
 #pragma mark - alert
