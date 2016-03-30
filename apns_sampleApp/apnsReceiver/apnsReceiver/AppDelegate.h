@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "cusNaviController.h"
 #import "AFNetworking.h"
 #import "ViewController.h"
 

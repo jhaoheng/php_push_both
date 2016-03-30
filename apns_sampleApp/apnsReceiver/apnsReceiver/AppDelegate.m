@@ -43,7 +43,10 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window makeKeyAndVisible];
     temp = [[ViewController alloc] init];
-    self.window.rootViewController = temp;
+    
+    cusNaviController *navi = [[cusNaviController alloc] initWithRootViewController:temp];
+    navi.naviBtnOn = temp;//set cus btn
+    self.window.rootViewController = navi;
     
     return YES;
 }

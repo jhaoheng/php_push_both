@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "slideViewController.h"
 #import "AFNetworking.h"
+#import "cusNaviController.h"
 #import <MessageUI/MFMailComposeViewController.h>
 
-@interface ViewController : UIViewController<MFMailComposeViewControllerDelegate>
+@interface ViewController : UIViewController<MFMailComposeViewControllerDelegate,slideMenuDelegate>
+{
+    slideViewController *slide;
+}
 
 @property (nonatomic, retain) NSString *passToken;
 @property (nonatomic, retain) NSDictionary *passUserInfo;

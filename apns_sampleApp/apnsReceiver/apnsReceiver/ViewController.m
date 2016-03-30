@@ -87,57 +87,54 @@
     NSLog(@"CFBundleVersion : %@",[infoDictionary objectForKey:@"CFBundleVersion"]);
     NSLog(@"CFBundleShortVersionString : %@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]);
     
-    //Action btn
-    CGFloat w = 100;
-    CGFloat h = 44;
-//    UIButton *actionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    actionBtn.frame = CGRectMake(, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
-//    [self.view addSubview:actionBtn];
+    
     
     //
-    UILabel *tokenTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 50, CGRectGetWidth(self.view.frame)-20, 0)];
+    CGFloat tokenT_ori_h = CGRectGetMaxY(self.navigationController.navigationBar.frame);
+    UILabel *tokenTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, tokenT_ori_h+10, CGRectGetWidth(self.view.frame)-20, 0)];
     tokenTitle.text = @"Device Token is : ";
     [tokenTitle sizeToFit];
     NSLog(@"%@",NSStringFromCGRect(tokenTitle.frame));
     [self.view addSubview:tokenTitle];
-    
+
     //
     token_label = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(tokenTitle.frame)+10, CGRectGetWidth(self.view.frame)-20, 60)];
     token_label.numberOfLines = 0;
     token_label.lineBreakMode = NSLineBreakByCharWrapping;
     token_label.text = @"hello, wait to get token.";
     [self.view addSubview:token_label];
-    
-    //uibutton mail token
-    UIButton *mailTokenToSelf_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    mailTokenToSelf_btn.frame = CGRectMake(10, CGRectGetMaxY(token_label.frame)+10, (CGRectGetWidth(self.view.frame)-30)/3, 44);
-    [mailTokenToSelf_btn setTitle:@"mail Token" forState:UIControlStateNormal];
-    [mailTokenToSelf_btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [mailTokenToSelf_btn addTarget:self action:@selector(pass_activity:) forControlEvents:UIControlEventTouchUpInside];
-    mailTokenToSelf_btn.layer.cornerRadius = 10;
-    mailTokenToSelf_btn.layer.borderColor = [UIColor blackColor].CGColor;
-    mailTokenToSelf_btn.layer.borderWidth = .5;
-    mailTokenToSelf_btn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [self.view addSubview:mailTokenToSelf_btn];
-    
-    //uibutton apiback token
-    UIButton *apibackToken_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    apibackToken_btn.frame = CGRectMake(CGRectGetMaxX(mailTokenToSelf_btn.frame)+5, CGRectGetMaxY(token_label.frame)+10, (CGRectGetWidth(self.view.frame)-30)/3, 44);
-    [apibackToken_btn setTitle:@"apiback token" forState:UIControlStateNormal];
-    [apibackToken_btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [apibackToken_btn addTarget:self action:@selector(apiToken_activity:) forControlEvents:UIControlEventTouchUpInside];
-    apibackToken_btn.layer.cornerRadius = 10;
-    apibackToken_btn.layer.borderColor = [UIColor blackColor].CGColor;
-    apibackToken_btn.layer.borderWidth = .5;
-    apibackToken_btn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [self.view addSubview:apibackToken_btn];
-    
-    
-    
-    //log scroll view
+
+//    //uibutton mail token
+//    UIButton *mailTokenToSelf_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    mailTokenToSelf_btn.frame = CGRectMake(10, CGRectGetMaxY(token_label.frame)+10, (CGRectGetWidth(self.view.frame)-30)/3, 44);
+//    [mailTokenToSelf_btn setTitle:@"mail Token" forState:UIControlStateNormal];
+//    [mailTokenToSelf_btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [mailTokenToSelf_btn addTarget:self action:@selector(pass_activity:) forControlEvents:UIControlEventTouchUpInside];
+//    mailTokenToSelf_btn.layer.cornerRadius = 10;
+//    mailTokenToSelf_btn.layer.borderColor = [UIColor blackColor].CGColor;
+//    mailTokenToSelf_btn.layer.borderWidth = .5;
+//    mailTokenToSelf_btn.titleLabel.font = [UIFont systemFontOfSize:12];
+//    [self.view addSubview:mailTokenToSelf_btn];
+//    
+//    //uibutton apiback token
+//    UIButton *apibackToken_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    apibackToken_btn.frame = CGRectMake(CGRectGetMaxX(mailTokenToSelf_btn.frame)+5, CGRectGetMaxY(token_label.frame)+10, (CGRectGetWidth(self.view.frame)-30)/3, 44);
+//    [apibackToken_btn setTitle:@"apiback token" forState:UIControlStateNormal];
+//    [apibackToken_btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    [apibackToken_btn addTarget:self action:@selector(apiToken_activity:) forControlEvents:UIControlEventTouchUpInside];
+//    apibackToken_btn.layer.cornerRadius = 10;
+//    apibackToken_btn.layer.borderColor = [UIColor blackColor].CGColor;
+//    apibackToken_btn.layer.borderWidth = .5;
+//    apibackToken_btn.titleLabel.font = [UIFont systemFontOfSize:12];
+//    [self.view addSubview:apibackToken_btn];
+//    
+//    
+//    
+//    //log scroll view
     [self init_logView];
     
     //
+    [self init_slideView];
 
 }
 
@@ -147,7 +144,7 @@
 }
 
 #pragma mark - pass token
-- (void)pass_activity:(id)sender
+- (void)mail_pass_activity:(id)sender
 {
     
     NSString *subject = [NSString stringWithFormat:@"Hello,this is '%@ token'",[UIDevice currentDevice].name];
@@ -220,7 +217,7 @@
 }
 
 #pragma mark - apiToken_activity
-- (void)apiToken_activity:(id)sender
+- (void)api_send_activity:(id)sender
 {
     //
 }
@@ -243,6 +240,41 @@
     }
 }
 
+#pragma mark - slide
+- (void)init_slideView
+{
+    NSArray *menuArray;
+    menuArray = [[NSArray alloc] initWithObjects:
+                 @"local Mail send",
+                 @"Api_send_mail",
+                 nil];
+    menuArray = [[NSArray alloc] initWithObjects:
+                 NSLocalizedString(@"local_Mail_send", ""),
+                 NSLocalizedString(@"Api_send_mail", ""),
+                 nil];
+    
+    //側邊欄主體
+    slide = [slideViewController slide_initAndBaseOn:self];
+    slide.passSideBtnAction_delegate = self;
+    slide.view.frame = CGRectMake(-self.view.frame.size.width, 0, self.view.frame.size.width, self.view.frame.size.height-49);
+    slide.menuArray = menuArray;
+    [self.view addSubview:slide.view];
+}
+
+- (void)didSlideSideBtnFeedback:(id)sender
+{
+    NSLog(@"delegate pass : %@",(NSMutableDictionary *)sender);
+    NSMutableDictionary *tempStr = (NSMutableDictionary *)sender;
+    if ([[tempStr objectForKey:@"id"] integerValue] == 0) {
+        [self mail_pass_activity:nil];
+    }
+    else if([[tempStr objectForKey:@"id"] integerValue] == 1){
+        [self api_send_activity:nil];
+    }
+}
+
 #pragma mark - AFNetworking
+
+
 
 @end
