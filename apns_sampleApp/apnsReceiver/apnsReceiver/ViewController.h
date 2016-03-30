@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AFNetworking.h"
 #import <MessageUI/MFMailComposeViewController.h>
 
 @interface ViewController : UIViewController<MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, retain) NSString *passToken;
 @property (nonatomic, retain) NSDictionary *passUserInfo;
+
+@property (nonatomic, strong) NSString *net_status;
 
 @end
 

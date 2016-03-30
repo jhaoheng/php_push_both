@@ -38,6 +38,8 @@
     //register to receive notifications
     //#endif
     
+    
+    application.idleTimerDisabled = YES;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window makeKeyAndVisible];
     temp = [[ViewController alloc] init];
@@ -62,6 +64,21 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    /*
+     設定監控網路的回饋
+     */
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        temp.net_status = AFStringFromNetworkReachabilityStatus(status);
+        
+    }];
+    
+    /*
+     啟動網路監控
+     */
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

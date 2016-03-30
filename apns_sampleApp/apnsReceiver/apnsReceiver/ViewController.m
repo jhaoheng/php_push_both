@@ -22,6 +22,7 @@
 
 @implementation ViewController
 @synthesize passToken=_passToken, passUserInfo=_passUserInfo;
+@synthesize net_status=_net_status;
 
 #define infoBlockHeight 183;
 
@@ -68,13 +69,18 @@
     accept_times_label.text = [NSString stringWithFormat:@"Times : %d",count];
 }
 
+- (void)setNet_status:(NSString *)net_status
+{
+    NSLog(@"網路狀態(Reachability)：%@",net_status);
+}
+
 #pragma mark - view did load
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view, typically from a nib.
     
-    //系統版本
+    //sys version
     NSDictionary* infoDictionary = [[NSBundle mainBundle] infoDictionary];
     //    NSLog(@"%i Keys:  %@", [infoDictionary count], [[infoDictionary allKeys] componentsJoinedByString: @" ,"]);
     NSLog(@"CFBundleVersion : %@",[infoDictionary objectForKey:@"CFBundleVersion"]);
@@ -117,19 +123,8 @@
     apibackToken_btn.titleLabel.font = [UIFont systemFontOfSize:12];
     [self.view addSubview:apibackToken_btn];
     
-    //uibutton clean log
-    UIButton *cleanLog_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    cleanLog_btn.frame = CGRectMake(CGRectGetMaxX(apibackToken_btn.frame)+5, CGRectGetMaxY(token_label.frame)+10, (CGRectGetWidth(self.view.frame)-30)/3, 44);
-    [cleanLog_btn setTitle:@"clean log" forState:UIControlStateNormal];
-    [cleanLog_btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [cleanLog_btn addTarget:self action:@selector(cleanLog_activity:) forControlEvents:UIControlEventTouchUpInside];
-    cleanLog_btn.layer.cornerRadius = 10;
-    cleanLog_btn.layer.borderColor = [UIColor blackColor].CGColor;
-    cleanLog_btn.layer.borderWidth = .5;
-    cleanLog_btn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [self.view addSubview:cleanLog_btn];
     
-    //次數
+    //notification times
     count = 0;
     accept_times_label = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(mailTokenToSelf_btn.frame)+5, CGRectGetWidth(self.view.frame)-20, 20)];
     accept_times_label.text = [NSString stringWithFormat:@"Times : %d",count];
@@ -139,6 +134,9 @@
     
     //log scroll view
     [self init_logView];
+    
+    //
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -183,10 +181,25 @@
     logView.backgroundColor = [UIColor blackColor];
     logView.alwaysBounceVertical = YES;
     [self.view addSubview:logView];
+    
+    //
+    //uibutton clean log
+    UIButton *cleanLog_btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    cleanLog_btn.frame = CGRectMake( CGRectGetMaxX(logView.frame)-100,0,100,44);
+    [cleanLog_btn setTitle:@"Clean" forState:UIControlStateNormal];
+    [cleanLog_btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [cleanLog_btn addTarget:self action:@selector(cleanLog_activity:) forControlEvents:UIControlEventTouchUpInside];
+    cleanLog_btn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [logView addSubview:cleanLog_btn];
 }
 
+#pragma mark 日誌清除
 - (void)cleanLog_activity:(id)sender
 {
+    if (count==0) {
+        [self alertOfTitle:@"" andMsg:@"Log was clean!"];
+        return;
+    }
     count = 0;
     accept_times_label.text = [NSString stringWithFormat:@"Times : %d",count];
     [self init_logView];
@@ -216,5 +229,6 @@
     }
 }
 
+#pragma mark - AFNetworking
 
 @end
