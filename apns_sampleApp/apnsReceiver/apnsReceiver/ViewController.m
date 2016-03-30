@@ -25,7 +25,7 @@
 @synthesize passToken=_passToken, passUserInfo=_passUserInfo;
 @synthesize net_status=_net_status;
 
-#define infoBlockHeight 183;
+#define infoBlockHeight 190;
 
 - (void)setPassToken:(NSString *)passToken
 {
@@ -50,19 +50,20 @@
     
     //
     CGFloat h = infoBlockHeight;
-    UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, accept_times_label_h+logView.contentSize.height, CGRectGetWidth(logView.frame), h)];
+    UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, logView.contentSize.height, CGRectGetWidth(logView.frame), h)];
     infoLabel.textColor = [UIColor whiteColor];
     infoLabel.text = [NSString stringWithFormat:@"%@\n%@",localeDate,_passUserInfo];
     infoLabel.numberOfLines = 0;
     infoLabel.lineBreakMode = NSLineBreakByCharWrapping;
     infoLabel.textAlignment = NSTextAlignmentLeft;
     //    [infoLabel sizeToFit];
+    infoLabel.font = [UIFont systemFontOfSize:12];
     [logView addSubview:infoLabel];
     
     logView.contentSize = CGSizeMake(logView.frame.size.width, logView.contentSize.height+h);
     
     [UIView beginAnimations:nil context:nil];
-    logView.contentOffset = CGPointMake(0, logView.contentSize.height-h);
+    logView.contentOffset = CGPointMake(0, logView.contentSize.height-logView.frame.size.height);
     [UIView commitAnimations];
     
     //接收次數
@@ -206,36 +207,37 @@
     //remote notification times
     count = 0;
     accept_times_label_h = 20;
-    accept_times_label = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, CGRectGetWidth(self.view.frame)-20, accept_times_label_h)];
+    CGRect frame = CGRectMake(20, CGRectGetMinY(logView.frame)+5, 100, 20);
+    accept_times_label = [[UILabel alloc] initWithFrame:frame];
     accept_times_label.text = [NSString stringWithFormat:@"Times : %d",count];
     accept_times_label.textAlignment = NSTextAlignmentLeft;
     accept_times_label.textColor = [UIColor redColor];
     accept_times_label.font = [UIFont systemFontOfSize:12];
-    [logView addSubview:accept_times_label];
+    [self.view addSubview:accept_times_label];
     
     //uibutton clean log
     UIButton *cleanLog_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    cleanLog_btn.frame = CGRectMake( CGRectGetMaxX(logView.frame)-100,0,100,30);
+    cleanLog_btn.frame = CGRectMake( CGRectGetMaxX(logView.frame)-80,CGRectGetMinY(logView.frame),100,30);
     [cleanLog_btn setTitle:@"Clean" forState:UIControlStateNormal];
     [cleanLog_btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [cleanLog_btn addTarget:self action:@selector(cleanLog_activity:) forControlEvents:UIControlEventTouchUpInside];
     cleanLog_btn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [logView addSubview:cleanLog_btn];
+    [self.view addSubview:cleanLog_btn];
     
     //net status
-    CGRect frame = CGRectMake(CGRectGetWidth(logView.frame)-50-40, CGRectGetHeight(logView.frame)-20.5-10, 50, 20.5);
+    frame = CGRectMake(CGRectGetWidth(self.view.frame)-50-50, CGRectGetHeight(self.view.frame)-20.5-20, 50, 20.5);
     netStatus_label = [[UILabel alloc] initWithFrame:frame];
     netStatus_label.text = @"NONE";
     netStatus_label.textColor = [UIColor grayColor];
     netStatus_label.textAlignment = NSTextAlignmentRight;
     netStatus_label.font = [UIFont systemFontOfSize:12];
-    [logView addSubview:netStatus_label];
+    [self.view addSubview:netStatus_label];
     
     //
     frame = CGRectMake(CGRectGetMaxX(netStatus_label.frame)+10, CGRectGetMinY(netStatus_label.frame), 20, 20);
     netStatusImg = [[UIImageView alloc] initWithFrame:frame];
     netStatusImg.image = [UIImage imageNamed:@"icon_red.png"];
-    [logView addSubview:netStatusImg];
+    [self.view addSubview:netStatusImg];
 }
 
 #pragma mark 日誌清除
