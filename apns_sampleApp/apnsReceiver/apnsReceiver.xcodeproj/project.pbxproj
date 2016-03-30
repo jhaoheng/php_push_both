@@ -20,6 +20,7 @@
 		92F16CAB1CAB7EE100D3FE0B /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F16CA51CAB7EE100D3FE0B /* AFURLSessionManager.m */; };
 		92F16CB01CAB8C6C00D3FE0B /* slideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F16CAF1CAB8C6C00D3FE0B /* slideViewController.m */; };
 		92F16CB31CAB8DBF00D3FE0B /* cusNaviController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92F16CB21CAB8DBF00D3FE0B /* cusNaviController.m */; };
+		92F16CB61CAB94EA00D3FE0B /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 92F16CB51CAB94EA00D3FE0B /* menu.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		92F16CAF1CAB8C6C00D3FE0B /* slideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = slideViewController.m; sourceTree = "<group>"; };
 		92F16CB11CAB8DBF00D3FE0B /* cusNaviController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cusNaviController.h; sourceTree = "<group>"; };
 		92F16CB21CAB8DBF00D3FE0B /* cusNaviController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cusNaviController.m; sourceTree = "<group>"; };
+		92F16CB51CAB94EA00D3FE0B /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				92F16C5E1CAAE74000D3FE0B /* Default-568h@2x.png */,
+				92F16CB41CAB94EA00D3FE0B /* resource */,
 				92F16C971CAB7EE100D3FE0B /* kit */,
 				92F16C461CAAE60F00D3FE0B /* apnsReceiver */,
 				92F16C451CAAE60F00D3FE0B /* Products */,
@@ -142,6 +145,14 @@
 			path = slideMenu;
 			sourceTree = "<group>";
 		};
+		92F16CB41CAB94EA00D3FE0B /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				92F16CB51CAB94EA00D3FE0B /* menu.png */,
+			);
+			path = resource;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -202,6 +213,7 @@
 			files = (
 				92F16C541CAAE60F00D3FE0B /* Assets.xcassets in Resources */,
 				92F16C5F1CAAE74000D3FE0B /* Default-568h@2x.png in Resources */,
+				92F16CB61CAB94EA00D3FE0B /* menu.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

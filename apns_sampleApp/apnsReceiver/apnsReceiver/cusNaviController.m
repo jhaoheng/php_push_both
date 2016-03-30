@@ -15,10 +15,9 @@
 - (void)setNaviBtnOn:(UIViewController *)naviBtnOn
 {
     UIButton *menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    menuBtn.frame = CGRectMake(0, 0, 30, 18);
-    menuBtn.backgroundColor = [UIColor redColor];
-//    [menuBtn setImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
-    [menuBtn setTitle:@"btn" forState:UIControlStateNormal];
+    menuBtn.frame = CGRectMake(0, 0, 30, 30);
+    menuBtn.backgroundColor = [UIColor clearColor];
+    [menuBtn setImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
     [menuBtn addTarget:self action:@selector(menu_activity:) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *leftBtn = [[UIBarButtonItem alloc] initWithCustomView:menuBtn];
@@ -36,12 +35,6 @@
                                      resizingMode:UIImageResizingModeStretch];
     
     [[UINavigationBar appearance] setBackgroundImage:NavigationBackground forBarMetrics:UIBarMetricsDefault];
-    
-    UIImageView *logoView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetWidth(self.view.frame)-70-10, 20, 70, 18)];
-    logoView.image = [UIImage imageNamed:@"navi_logo.png"];
-    logoView.backgroundColor = [UIColor clearColor];
-    [self.navigationBar addSubview:logoView];
-    
 }
 
 
